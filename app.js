@@ -8,19 +8,26 @@ const port = process.env.PORT || 5000;
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./db/connect");
 const authRouter = require("./routes/authRoutes");
 
 // middlewares
-app.use(morgan('tiny'));
+app.use(morgan("tiny"));
 app.use(express.json());
+app.use(cookieParser(process.env.JWT_SECRET));
 
 // routes
 app.get("/", (req, res) => {
-    res.send('<h1>E-commerce API</h1>')
-})
+  res.send("<h1>E-commerce API</h1>");
+});
 
-app.use('/api/v1/auth', authRouter);
+app.get("/api/v1", (req, res) => {
+  console.log(req.cookies);
+  res.send("<h1>E-commerce API</h1>");
+});
+
+app.use("/api/v1/auth", authRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
