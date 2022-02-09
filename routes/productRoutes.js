@@ -25,6 +25,6 @@ router
   .route("/uploadImage")
   .post([authenticateUser, authorizePermissions], uploadImage);
 
-router.route("/:id/review").get(getSingleProductReviews);
+router.route("/:id/reviews").get(getSingleProductReviews);
 
 module.exports = router;

@@ -60,18 +60,6 @@ const getSingleProduct = async (req, res) => {
   res.status(StatusCodes.OK).json({ product });
 };
 
-const getSingleProductReview = async (req, res) => {
-  const product = await Product.findOne({ _id: req.params.id}).populate('review');
-  if (!product) {
-    throw new CustomError.NotFoundError(
-      "There is no product with id " + req.params.id
-    );
-  }
-
-  res.status(StatusCodes.OK).json({ product });
-
-}
-
 const uploadImage = async (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     throw new CustomError.BadRequestError("No files were uploaded.");
@@ -93,7 +81,6 @@ const uploadImage = async (req, res) => {
 module.exports = {
   getSingleProduct,
   getAllProducts,
-  getSingleProductReview,
   uploadImage,
   createProduct,
   deleteProduct,

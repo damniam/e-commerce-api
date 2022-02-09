@@ -78,11 +78,11 @@ ProductSchema.pre("remove", { document: true }, async function (next) {
   await mongoose.model("Review").deleteMany({ product: this._id });
 });
 
-ProductSchema.virtual('reviews', { 
-  ref: 'Review',
+ProductSchema.virtual("reviews", {
+  ref: "Review",
   localField: "_id",
   foreignField: "product",
-  justOne: true
-})
+  justOne: false,
+});
 
 module.exports = mongoose.model("Product", ProductSchema);

@@ -28,16 +28,18 @@ const createReview = async (req, res) => {
   if (!isValidProduct) {
     throw new CustomError.BadRequestError("Product not found");
   }
-
+  console.log(req.body);
   const isAlreadyCreated = await Review.findOne({
     product: productId,
     createdBy: req.user.userId,
   });
+
   if (isAlreadyCreated) {
     throw new CustomError.BadRequestError("Reviews already exist");
   }
 
   const review = await Review.create(req.body);
+  console.log(review);
   res.status(StatusCodes.OK).json({ review });
 };
 
@@ -73,7 +75,7 @@ const deleteReview = async (req, res) => {
 };
 
 const getSingleProductReviews = async (req, res) => {
-  const product = await Product.findOne({ _id: req.params.id });
+  const product = await Product.findOne({ _id: req.params.id }).populate("reviews");
 
   if (!product) {
     throw new CustomError.NotFoundError(
