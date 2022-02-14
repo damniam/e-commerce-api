@@ -9,9 +9,13 @@ const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const fileUpload = require("express-fileupload");
 
+const cors = require("cors");
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const mongoSanitize = require("express-mongo-sanitize");
+const rateLimit = require("express-rate-limit");
+const fileUpload = require("express-fileupload");
 const connectDB = require("./db/connect");
 
 const authRouter = require("./routes/authRoutes");
@@ -20,13 +24,26 @@ const productRouter = require("./routes/productRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const orderRouter = require("./routes/orderRoutes");
 
+app.set("trust proxy", 1);
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 // middlewares
+app.use(limiter);
 app.use(express.static("./public"));
 app.use(morgan("tiny"));
 app.use(express.json());
+app.use(fileUpload());
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(cors());
-app.use(fileUpload());
+app.use(helmet());
+app.use(xss());
+app.use(mongoSanitize());
 
 // routes
 app.get("/", (req, res) => {
