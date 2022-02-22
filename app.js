@@ -46,15 +46,6 @@ app.use(xss());
 app.use(mongoSanitize());
 
 // routes
-app.get("/", (req, res) => {
-  res.send("<h1>E-commerce API</h1>");
-});
-
-app.get("/api/v1", (req, res) => {
-  console.log(req.cookies);
-  res.send("<h1>E-commerce API</h1>");
-});
-
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
