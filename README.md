@@ -1,12 +1,15 @@
 # E-commerce API
+
 Simple E-Commerce API with Node.js, Express, MongoDB and Mongoose ODM
 
 # Screenshot
+
 ![screenshot](./public/doc.png)
 
-[Live Demo Link](e-commerce-test-api.herokuapp.com/)
+[Live Demo Link](https://e-commerce-test-api.herokuapp.com/)
 
 # Tools & Technologies Used
+
 - Node.js
 - MongoDB and Mongoose
 - Express
@@ -15,7 +18,6 @@ Simple E-Commerce API with Node.js, Express, MongoDB and Mongoose ODM
 - Postman
 - Swagger UI
 
-
 ## Installation And Usage
 
 To run this project run
@@ -23,15 +25,21 @@ To run this project run
 ```bash
   git clone https://github.com/defmian/e-commerce-api.git
 ```
+
 Go to directory
+
 ```bash
   cd E-Commerce API
 ```
+
 Install all dependecies
+
 ```bash
  npm install
 ```
+
 Run Project
+
 ```bash
   npm start
 ```
